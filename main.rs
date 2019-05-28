@@ -2,9 +2,10 @@ fn main()
 {
 }
 
-fn instructions()
+fn rules()
 {
-	writeln!("-- INSTRUCTIONS --");
+	writeln!("-- RULES --");
+	writeln!("You play as the better, placing bets against the roll of the caster.");
 }
 
 fn help()
