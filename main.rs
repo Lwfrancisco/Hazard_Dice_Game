@@ -12,9 +12,6 @@ fn main()
 
     // Number of players.
     let player_count:u8 = 2;
-    
-    // Player turn. 0 is the caster and 1+ are the players.
-    let mut player_turn:u8 = 0;
 
     // Terminated is set when player quits the game or the game is won.
     let mut terminated:bool = false;
