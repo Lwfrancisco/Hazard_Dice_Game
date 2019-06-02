@@ -22,7 +22,7 @@ fn main()
     while !terminated
     {
         // Begin a "round" of gameplay.
-        for player_turn in 0..player_count 
+       for player_turn in 0..player_count 
         {
             println!("Player {}'s turn.", player_turn);
         }
@@ -30,42 +30,79 @@ fn main()
         // Check if game is won
         terminated = win_condition();
     }
-
 }
 
+/*********************************************************************
+ * method name: rules
+ * purpose: display the rules of the game
+ * parameters: none
+ * return: none
+ * ******************************************************************/ 
 fn rules()
 {
-	println!("-- RULES --");
-	println!("You play as the better, placing bets against the roll of the caster.");
+    println!("\t\t-- RULES --");
+    println!("You play as the better, placing bets against the roll of the caster.");
+    println!("Before each roll, you will place a bet on whether the caster will lose, win, or throw a chance.");
+    println!("In each round, the caster chooses a number between 5 and 9. This is called the main.");
+    println!("Then, the caster rolls two dice.");
+    println!("If the caster throws the main, he automatically wins and you lose.");
+    println!("If the caster throws a 2 or 3, he automatically loses and you win.");
+    println!("If the caster throws a 11 or 12, the results depend on the main: ");
+    println!("\t-> if the main is 5 or 9, the caster loses.");
+    println!("\t-> if the main is 6 or 8, the caster loses with a roll of 11 but wins with a roll of 12.");
+    println!("\t-> if the main is 7, the caster wins with a roll of 12 but loses with a roll of 11.");
+    println!("If the caster does not throw the main, 2, 3, 11, or 12, then the roll is called the chance.");
+    println!("The caster gets to roll again.");
+    println!("If the caster throws the chance, he wins and you lose.");
+    println!("If the caster throws the main, he loses and you win.");
+    println!("If the caster throws neither, he keeps rolling until he either throws the chance or main.");
 }
 
+/*********************************************************************
+ * method name: help
+ * purpose: display the options of the game
+ * parameters: none
+ * return: none
+ * ******************************************************************/ 
 fn help()
 {
-	println!("-- HELP --");
+	println!("\t\t-- HELP --");
 	println!("h - brings up the help screen.");
 	println!("r - brings up the rules screen.");
 	println!("a - brings up the about screen.");
 	println!("q - ends the program.\n");	
 }
 
+/*********************************************************************
+ * method name: welcome
+ * purpose: display welcome message
+ * parameters: none
+ * return: none
+ * ******************************************************************/ 
 fn welcome()
 {
-	println!("-- WELCOME TO HAZARD --");
+	println!("\t\t-- WELCOME TO HAZARD --");
 	println!("Bet at your own risk...\n");
 }
 
+/*********************************************************************
+ * method name: about
+ * purpose: display the history and creator information of the game
+ * parameters: none
+ * return: none
+ * ******************************************************************/ 
 fn about()
 {
-	println!("-- ABOUT --");
+	println!("\t\t-- ABOUT --");
 	println!("Hazard is a very old English dice game that has been around since the\n13th century and is a predeccessor to Crabs.");
 	println!("Geoffrey Chaucer even refers to the game in the Canterbury Tales!");
 	println!("Despite its complicated rules, hazard was very popular in the 17th\nand 18th centuries and was often played for money.");
 	println!("Hazard is generally a game played between two people - a caster and a better. However, hazard also supports multiple betters.");
 	println!("This implementation only supports one person - a better playing against the computer caster.");
 	println!("\nCreators:");
-	println!("Andrew Young: andrew.young@oit.edu");
-	println!("Logan Francisco: logan.francisco@oit.edu");
-	println!("Rowan Parker: rowan.parker@oit.edu\n");
+	println!("\tAndrew Young: andrew.young@oit.edu");
+	println!("\tLogan Francisco: logan.francisco@oit.edu");
+	println!("\tRowan Parker: rowan.parker@oit.edu\n");
 }
 
 /**
