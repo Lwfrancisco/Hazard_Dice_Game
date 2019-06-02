@@ -40,8 +40,8 @@ fn main()
  * ******************************************************************/ 
 fn rules()
 {
-    println!("\t\t-- RULES --");
-    println!("You play as the better, placing bets against the roll of the caster.");
+	println!("\t\t-- RULES --");
+	println!("You play as the better, placing bets against the roll of the caster.");
     println!("Before each roll, you will place a bet on whether the caster will lose, win, or throw a chance.");
     println!("In each round, the caster chooses a number between 5 and 9. This is called the main.");
     println!("Then, the caster rolls two dice.");
@@ -52,10 +52,10 @@ fn rules()
     println!("\t-> if the main is 6 or 8, the caster loses with a roll of 11 but wins with a roll of 12.");
     println!("\t-> if the main is 7, the caster wins with a roll of 12 but loses with a roll of 11.");
     println!("If the caster does not throw the main, 2, 3, 11, or 12, then the roll is called the chance.");
-    println!("The caster gets to roll again.");
-    println!("If the caster throws the chance, he wins and you lose.");
-    println!("If the caster throws the main, he loses and you win.");
-    println!("If the caster throws neither, he keeps rolling until he either throws the chance or main.");
+    println!("The caster gets to roll again:");
+    println!("\t-> If the caster throws the chance, he wins and you lose.");
+    println!("\t-> If the caster throws the main, he loses and you win.");
+    println!("\t-> If the caster throws neither, he keeps rolling until he either throws the chance or main.");
 }
 
 /*********************************************************************
@@ -103,6 +103,85 @@ fn about()
 	println!("\tAndrew Young: andrew.young@oit.edu");
 	println!("\tLogan Francisco: logan.francisco@oit.edu");
 	println!("\tRowan Parker: rowan.parker@oit.edu\n");
+}
+
+/*********************************************************************
+ * method name: print_dice
+ * purpose: display an ASCII image of a single die depending on what
+ *  what has been rolled.
+ * parameters: unsigned 8-bit integer for number rolled
+ * return: none
+ * ******************************************************************/ 
+fn print_dice(d1: u8)
+{
+    println!(" ---");
+    //  ---
+    // |   |
+    // | o |
+    // |   |
+    //  ---
+    if d1 == 1
+    {
+        println!("|   |");
+        println!("| o |");
+        println!("|   |");
+    }
+    //  ---
+    // |o  |
+    // |   |
+    // |  o|
+    //  ---
+    else if d1 == 2
+    {
+        println!("|o  |");
+        println!("|   |");
+        println!("|  o|");
+    }
+    //  ---
+    // |o  |
+    // | o |
+    // |  o|
+    //  ---
+    else if d1 == 3
+    {
+        println!("|o  |");
+        println!("| o |");
+        println!("|  o|");
+    }
+    //  ---
+    // |o o|
+    // |   |
+    // |o o|
+    //  ---
+    else if d1 == 4
+    {
+        println!("|o o|");
+        println!("|   |");
+        println!("|o o|");
+    }
+    //  ---
+    // |o o|
+    // | o |
+    // |o o|
+    //  ---
+    else if d1 == 5
+    {
+        println!("|o o|");
+        println!("| o |");
+        println!("|o o|");
+    }
+    //  ---
+    // |o o|
+    // |o o|
+    // |o o|
+    //  ---
+    else 
+    {
+        println!("|o o|");
+        println!("|o o|");
+        println!("|o o|");
+    }
+    println!(" ---\n");
 }
 
 /**
