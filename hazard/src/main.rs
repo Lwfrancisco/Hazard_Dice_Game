@@ -28,10 +28,8 @@ fn main()
     // Terminated is set when player quits the game or the game is won.
     let mut terminated:bool = false;
 
-    // Initialize and Declare caster and player.
-    let mut player = Player{ winnings:0, bet:0, outcome_guess:true };
+	let mut player = Player{ winnings:0, bet:0, outcome_guess:false }; 
 	
-    // Holds the user input values
     let mut user_input = String::new();
 
     // Number of throws for caster
@@ -49,14 +47,14 @@ fn main()
     while !terminated
     {
         // Begin a "round" of gameplay.
+
+        println!("Player {}'s turn.", player_turn + 1);
+
         if caster_main == 0
         {
-            println!("Caster is rolling!!!");
             caster_main = roll_caster_main();
             println!("The caster's main is: {}\n", caster_main);
         }
-
-        println!("\nPlayer {}'s turn.", player_turn + 1);
 
         // if user_input is assigned to some value
         if !(user_input == "") 
@@ -65,8 +63,6 @@ fn main()
         }
 
         // Obtain input and evaluate it
-        println!("What would Player {} like to do?", player_turn + 1);
-
         io::stdin().read_line(&mut user_input)
             .expect("Failed to read line");
 
@@ -87,18 +83,12 @@ fn main()
         }
         else if user_input == "b"
         {
-            place_bet(&mut player);
-            println!("{}", player.bet);
-            println!("{}", player.outcome_guess);
+            place_bet(&mut player, caster_main);
             player_turn = player_turn + 1;
         }
         else if user_input == "q"
         {
             terminated = true;
-        }
-        else
-        {
-            println!("Invalid input. Please enter valid input as described in help (type 'h')");
         }
 
         // if we have cycled through all players.
@@ -107,10 +97,10 @@ fn main()
             player_turn = 0;
         }
 
-        // Check if game is won
+         // Check if game is won
         if terminated == false && user_input == "b"
         {
-            let keep_rolling = true;
+            let mut keep_rolling = true;
 
             while (keep_rolling)
             {
@@ -119,11 +109,13 @@ fn main()
 
                 if (round_result == 0) {
                     println!("Caster has lost!");
+                    money_distribution(false, &mut player);
                     keep_rolling = false;
                 }
                 else if round_result == 2
                 {
                     println!("Caster has won!");
+                    money_distribution(true, &mut player);
                     keep_rolling = false;
 
                 }
@@ -407,13 +399,13 @@ fn print_emoji_die(d1:u8)
  * parameters: A reference to a Player struct to allow value changes
  * return: none
  * ******************************************************************/ 
-fn place_bet(mut play:&mut Player)
+fn place_bet(mut play:&mut Player, main:u8)
 {
     let mut cont:bool = false;
     let mut bet:bool = false;
 
     while cont == false {
-        println!("Would you like to bet? (yes/no)");
+        println!("The main is {}. Would you like to bet? (yes/no)", main);
 
         let mut decision = String::new();
         io::stdin()
@@ -431,7 +423,6 @@ fn place_bet(mut play:&mut Player)
             println!("Please give a clearer answer");
         }
     }
-    let mut outcome:bool = false;
 
     cont = false;
 
@@ -459,7 +450,7 @@ fn place_bet(mut play:&mut Player)
 		cont = false;
 	
 		while cont == false {
-			println!("Would you like to bet for a win?");
+			println!("Would you like to bet for a win? (yes/no)");
 
             let mut decision = String::new();
             io::stdin()
@@ -564,4 +555,20 @@ fn win_condition(_throw_count:u8, _main:u8, _roll:u8) -> u8
     // Else all, roll is a chance
     return 1;
 
+}
+
+/**
+ * money_distribution
+ * Tallies out the money
+ */
+fn money_distribution(game_outcome:bool, mut play:&mut Player)
+{
+    if(game_outcome == play.outcome_guess)
+    {
+        play.winnings = play.winnings + play.bet;
+    }
+    else
+    {
+        play.winnings = play.winnings - play.bet;
+    }
 }
