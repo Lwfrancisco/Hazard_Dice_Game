@@ -1,3 +1,8 @@
+struct Player {
+    name: String,
+    winnings: i32,
+}
+
 fn main()
 {
     /*
@@ -182,6 +187,89 @@ fn print_dice(d1: u8)
         println!("|o o|");
     }
     println!(" ---\n");
+}
+
+/*********************************************************************
+ * method name: place_bet
+ * purpose: determine wether the player wants to make a bet
+ * return: player's guess of outcome
+ * ******************************************************************/ 
+fn place_bet() -> bool
+{
+    let mut cont:bool = false;
+    let mut bet:bool = false;
+    let win: bool = false;
+    let mut outcome:bool = false;
+    let mut bet_amount: i32 = 0;
+
+    while cont == false {
+        println!("Would you like to bet?");
+
+        let mut decision = String::new();
+        io::stdin()
+            .read_line(&mut decision)
+            .expect("failed to read from stdin");
+    
+        if decision.trim().to_ascii_lowercase() == "yes"{
+            println!("You want to place a bet");
+            cont = true;
+            bet = true;
+        } else if decision.trim().to_ascii_lowercase() == "no"{
+            println!("You do not want to place a bet");
+            cont = true;
+        } else {
+            println!("Please give a clearer answer");
+        }
+    }
+
+    cont = false;
+
+    if bet == true {
+        while cont == false {
+            println!("How much would you like to bet?");
+
+            let mut decision = String::new();
+            io::stdin()
+                .read_line(&mut decision)
+                .expect("failed to read from stdin");
+
+            let trimmed = decision.trim();
+            match trimmed.parse::<i32>() {
+                Ok(i) => {
+                        println!("Your bet: ${}", i);
+                        bet_amount = i;
+                        cont = true
+                }
+                Err(..) => println!("That was not a proper bet"),
+            };
+
+        }
+	    
+	cont = false;
+	
+	while cont == false {
+		println!("Would you like to bet for a win?");
+
+            let mut decision = String::new();
+            io::stdin()
+               .read_line(&mut decision)
+               .expect("failed to read from stdin");
+    
+            if decision.trim().to_ascii_lowercase() == "yes"{
+               println!("You want the caster to win");
+               cont = true;
+	       outcome = true;
+            }  else if decision.trim().to_ascii_lowercase() == "no"{
+               println!("You want the caster to lose");
+               cont = true;
+            } else {
+               println!("Please give a clearer answer");
+            }
+	
+	}
+    }
+	
+    return outcome;
 }
 
 /**
