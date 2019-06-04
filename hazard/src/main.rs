@@ -29,13 +29,6 @@ fn main()
 
     welcome();
     help();
-
-    print_unicode_die(1);
-    print_unicode_die(2);
-    print_unicode_die(3);
-    print_unicode_die(4);
-    print_unicode_die(5);
-    print_unicode_die(6);
 	
     while !terminated
     {
