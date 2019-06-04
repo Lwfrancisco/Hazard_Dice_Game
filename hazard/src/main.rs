@@ -104,8 +104,9 @@ fn main()
 
             while (keep_rolling)
             {
+                caster_roll = roll();
 
-                let round_result = win_condition(caster_throws, caster_main, caster_roll);
+                let round_result = win_condition(caster_main, caster_roll);
 
                 if (round_result == 0) {
                     println!("Caster has lost!");
@@ -504,13 +505,8 @@ fn roll_caster_main() -> u8
  * 
  * Returns 0 if lost, 1 if chance, or 2 if won.
  */
-fn win_condition(_throw_count:u8, _main:u8, _roll:u8) -> u8
+fn win_condition(_main:u8, _roll:u8) -> u8
 {
-    // if the caster hasn't rolled anything besides main, always return false.
-    if _throw_count == 0
-    {
-        return 0;
-    }
 
     // Check if caster has lost
     if _roll == 2 || _roll == 3
@@ -571,4 +567,16 @@ fn money_distribution(game_outcome:bool, mut play:&mut Player)
     {
         play.winnings = play.winnings - play.bet;
     }
+}
+
+
+fn roll() -> u8
+{
+    let dice1 = rand::thread_rng().gen_range(1, 6);
+    let dice2 = rand::thread_rng().gen_range(1, 6);
+
+    print_unicode_die(dice1);
+    print_unicode_die(dice2);
+
+    return dice1 + dice2;
 }
