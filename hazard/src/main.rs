@@ -1,3 +1,5 @@
+use std::io;
+
 fn main()
 {
     /*
@@ -15,6 +17,9 @@ fn main()
 
     // Terminated is set when player quits the game or the game is won.
     let mut terminated:bool = false;
+
+
+    let mut user_input = String::new();
 
     welcome();
     help();
@@ -38,10 +43,40 @@ fn main()
        for player_turn in 0..player_count 
         {
             println!("Player {}'s turn.", player_turn);
+
+            // Obtain input and evaluate it
+            io::stdin().read_line(&mut user_input)
+                .expect("Failed to read line");
+
+            //let _input = user_input.as_str();
+
+            // truncate all but the first character.
+            user_input.truncate(1);
+            
+            if user_input == "h"
+            {
+                help();
+            }
+            else if user_input == "r"
+            {
+                rules();
+            }
+            else if user_input == "a"
+            {
+                about();
+            }
+            else if user_input == "q"
+            {
+                terminated = true;
+                break;
+            }
         }
 
         // Check if game is won
-        terminated = win_condition();
+        if terminated == false
+        {
+            terminated = win_condition();
+        }
     }
 }
 
@@ -237,5 +272,5 @@ fn print_unicode_die(d1:u8)
  */
 fn win_condition() -> bool
 {
-    return true;
+    return false;
 }
