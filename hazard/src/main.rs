@@ -28,11 +28,17 @@ fn main()
     // Terminated is set when player quits the game or the game is won.
     let mut terminated:bool = false;
 
-	let mut player = Player{ winnings:0, bet:0, outcome_guess:false }; 
+    // Initialize and Declare caster and player.
+    let mut player = Player{ winnings:0, bet:0, outcome_guess:true };
 	
+    // Holds the user input values
     let mut user_input = String::new();
 
-    let mut caster_main = 0;
+    // Number of throws for caster
+    let mut caster_throws = 0;
+
+    // Variable will store the caster's main roll.
+    let mut caster_main:u8 = 0;
 
     welcome();
     help();
@@ -101,7 +107,7 @@ fn main()
         // Check if game is won
         if terminated == false
         {
-            terminated = win_condition();
+            terminated = win_condition(caster_throws, caster_main);
         }
     }
 }
@@ -380,7 +386,6 @@ fn place_bet(mut play:&mut Player)
 {
     let mut cont:bool = false;
     let mut bet:bool = false;
-    let mut outcome:bool = false;
 
     while cont == false {
         println!("Would you like to bet? (yes/no)");
@@ -401,6 +406,7 @@ fn place_bet(mut play:&mut Player)
             println!("Please give a clearer answer");
         }
     }
+    let mut outcome:bool = false;
 
     cont = false;
 
@@ -482,7 +488,8 @@ fn roll_caster_main() -> u8
  * 
  * Returns true as a placeholder.
  */
-fn win_condition() -> bool
+fn win_condition(_thow_count:u8, _main:u8) -> bool
 {
+    
     return false;
 }
