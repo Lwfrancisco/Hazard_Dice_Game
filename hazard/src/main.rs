@@ -1,5 +1,5 @@
 use std::io;
-//use rand::Rng;
+use rand::Rng;
 
 struct Player {
     winnings: i32,
@@ -31,7 +31,21 @@ fn main()
 	
     let mut user_input = String::new();
 
-    //let caster_main = rand::thread_rng().gen_range(5, 9);
+    let mut caster_main = 0;
+    
+    while caster_main < 5 && caster_main > 9
+    {
+        let dice1 = rand::thread_rng().gen_range(1, 6);
+        let dice2 = rand::thread_rng().gen_range(1, 6);
+
+        caster_main = dice1 + dice2;
+
+        if caster_main >= 5 && caster_main <= 9
+        {
+            print_unicode_die(dice1);
+            print_unicode_die(dice2);
+        }
+    }
 
     welcome();
     help();
@@ -368,7 +382,7 @@ fn place_bet(mut input_bet:i32) -> bool
     let mut bet_amount: i32 = 0;
 
     while cont == false {
-        println!("Would you like to bet?");
+        println!("Would you like to bet? (yes/no)");
 
         let mut decision = String::new();
         io::stdin()
