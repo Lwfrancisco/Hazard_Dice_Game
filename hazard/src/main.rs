@@ -28,8 +28,10 @@ fn main()
     // Terminated is set when player quits the game or the game is won.
     let mut terminated:bool = false;
 
+    // Initialize and declare Player structure.
 	let mut player = Player{ winnings:0, bet:0, outcome_guess:false }; 
 	
+    // Buffer used to hold the user input captured from stdin
     let mut user_input = String::new();
 
     // Number of throws for caster
@@ -41,20 +43,23 @@ fn main()
     // Variable will store the caster's main roll.
     let mut caster_main:u8 = 0;
 
+    // Display welcome message
     welcome();
+
+    // Display help options
     help();
 	
     while !terminated
     {
         // Begin a "round" of gameplay.
 
-        println!("Player {}'s turn.", player_turn + 1);
-
         if caster_main == 0
         {
             caster_main = roll_caster_main();
             println!("The caster's main is: {}\n", caster_main);
         }
+
+        println!("Player {}'s turn:", player_turn + 1);
 
         // if user_input is assigned to some value
         if !(user_input == "") 
@@ -90,6 +95,9 @@ fn main()
         {
             terminated = true;
         }
+        else {
+            println!("Invalid input. Type 'h' for help.");
+        }
 
         // if we have cycled through all players.
         if player_turn >= player_count
@@ -111,22 +119,22 @@ fn main()
                 if (round_result == 0) {
                     println!("Caster has lost!");
                     money_distribution(false, &mut player);
-					println!("Player has won ${}, player.winnings);
-					terminated = truw;
+					println!("Player has won ${}", player.winnings);
+					terminated = true;
                     keep_rolling = false;
                 }
                 else if round_result == 2
                 {
                     println!("Caster has won!");
                     money_distribution(true, &mut player);
-					println!("Player has won ${}, player.winnings);
+					println!("Player has won ${}", player.winnings);
 					terminated = true;
                     keep_rolling = false;
 
                 }
                 else if round_result == 1
                 {
-                    println!("Caster has thrown a chance!");
+                    println!("Caster has thrown a chance!\n");
                     keep_rolling = true;
                 }
             }
