@@ -1,8 +1,8 @@
 use std::io;
 
 struct Player {
-    name: String,
     winnings: i32,
+    bet: i32,
 }
 
 fn main()
@@ -55,7 +55,7 @@ fn main()
             if user_input == "h"
             {
                 help();
-            }
+			}
             else if user_input == "r"
             {
                 rules();
@@ -64,6 +64,10 @@ fn main()
             {
                 about();
             }
+			else if user_input == "b"
+			{
+				place_bet();
+			}
             else if user_input == "q"
             {
                 terminated = true;
@@ -347,7 +351,7 @@ fn print_emoji_die(d1:u8)
  * purpose: determine wether the player wants to make a bet
  * return: player's guess of outcome
  * ******************************************************************/ 
-fn place_bet() -> bool
+fn place_bet(player:Player) -> bool
 {
     let mut cont:bool = false;
     let mut bet:bool = false;
@@ -389,7 +393,7 @@ fn place_bet() -> bool
             match trimmed.parse::<i32>() {
                 Ok(i) => {
                         println!("Your bet: ${}", i);
-                        bet_amount = i;
+                        player.bet = i;
                         cont = true
                 }
                 Err(..) => println!("That was not a proper bet"),
