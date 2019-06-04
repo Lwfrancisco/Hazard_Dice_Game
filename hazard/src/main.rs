@@ -23,7 +23,7 @@ fn main()
     // Terminated is set when player quits the game or the game is won.
     let mut terminated:bool = false;
 
-	let mut player = Player{ 0, 0 }; 
+	let mut player = Player{ winnings:0, bet:0 }; 
 	
     let mut user_input = String::new();
 
@@ -37,11 +37,15 @@ fn main()
         {
             println!("Player {}'s turn.", player_turn);
 
+            // if user_input is assigned to some value
+            if !(user_input == "") 
+            {
+                user_input = "".to_string();
+            }
+
             // Obtain input and evaluate it
             io::stdin().read_line(&mut user_input)
                 .expect("Failed to read line");
-
-            //let _input = user_input.as_str();
 
             // truncate all but the first character.
             user_input.truncate(1);
@@ -60,7 +64,7 @@ fn main()
             }
 			else if user_input == "b"
 			{
-				place_bet(player);
+				place_bet(player.bet);
 			}
             else if user_input == "q"
             {
@@ -345,7 +349,7 @@ fn print_emoji_die(d1:u8)
  * purpose: determine wether the player wants to make a bet
  * return: player's guess of outcome
  * ******************************************************************/ 
-fn place_bet(player:Player) -> bool
+fn place_bet(mut input_bet:i32) -> bool
 {
     let mut cont:bool = false;
     let mut bet:bool = false;
@@ -387,7 +391,7 @@ fn place_bet(player:Player) -> bool
             match trimmed.parse::<i32>() {
                 Ok(i) => {
                         println!("Your bet: ${}", i);
-                        player.bet = i;
+                        input_bet = i;
                         cont = true
                 }
                 Err(..) => println!("That was not a proper bet"),
