@@ -1,4 +1,5 @@
 use std::io;
+//use rand::Rng;
 
 struct Player {
     winnings: i32,
@@ -20,6 +21,9 @@ fn main()
     // Number of players.
     let player_count:u8 = 2;
 
+    // Which player's turn is it? 0 is caster.
+    let mut player_turn:u8 = 0;
+
     // Terminated is set when player quits the game or the game is won.
     let mut terminated:bool = false;
 
@@ -27,50 +31,56 @@ fn main()
 	
     let mut user_input = String::new();
 
+    //let caster_main = rand::thread_rng().gen_range(5, 9);
+
     welcome();
     help();
 	
     while !terminated
     {
         // Begin a "round" of gameplay.
-       for player_turn in 0..player_count 
+
+        println!("Player {}'s turn.", player_turn);
+
+        // if user_input is assigned to some value
+        if !(user_input == "") 
         {
-            println!("Player {}'s turn.", player_turn);
+            user_input = "".to_string();
+        }
 
-            // if user_input is assigned to some value
-            if !(user_input == "") 
-            {
-                user_input = "".to_string();
-            }
+        // Obtain input and evaluate it
+        io::stdin().read_line(&mut user_input)
+            .expect("Failed to read line");
 
-            // Obtain input and evaluate it
-            io::stdin().read_line(&mut user_input)
-                .expect("Failed to read line");
+        // truncate all but the first character.
+        user_input.truncate(1);
+        
+        if user_input == "h"
+        {
+            help();
+        }
+        else if user_input == "r"
+        {
+            rules();
+        }
+        else if user_input == "a"
+        {
+            about();
+        }
+        else if user_input == "b"
+        {
+            place_bet(player.bet);
+            player_turn = player_turn + 1;
+        }
+        else if user_input == "q"
+        {
+            terminated = true;
+        }
 
-            // truncate all but the first character.
-            user_input.truncate(1);
-            
-            if user_input == "h"
-            {
-                help();
-			}
-            else if user_input == "r"
-            {
-                rules();
-            }
-            else if user_input == "a"
-            {
-                about();
-            }
-			else if user_input == "b"
-			{
-				place_bet(player.bet);
-			}
-            else if user_input == "q"
-            {
-                terminated = true;
-                break;
-            }
+        // if we have cycled through all players.
+        if player_turn >= player_count
+        {
+            player_turn = 0;
         }
 
         // Check if game is won
@@ -119,6 +129,7 @@ fn help()
 	println!("h - brings up the help screen.");
 	println!("r - brings up the rules screen.");
 	println!("a - brings up the about screen.");
+    println!("b - allows the player to submit a bet.");
 	println!("q - ends the program.\n");	
 }
 
