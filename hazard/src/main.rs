@@ -23,7 +23,8 @@ fn main()
     // Terminated is set when player quits the game or the game is won.
     let mut terminated:bool = false;
 
-
+	let mut player = Player{ 0, 0 }; 
+	
     let mut user_input = String::new();
 
     welcome();
@@ -66,7 +67,7 @@ fn main()
             }
 			else if user_input == "b"
 			{
-				place_bet();
+				place_bet(player);
 			}
             else if user_input == "q"
             {
