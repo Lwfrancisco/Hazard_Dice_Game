@@ -40,8 +40,8 @@ fn main()
  * ******************************************************************/ 
 fn rules()
 {
-	println!("\t\t-- RULES --");
-	println!("You play as the better, placing bets against the roll of the caster.");
+    println!("\t\t-- RULES --");
+    println!("You play as the better, placing bets against the roll of the caster.");
     println!("Before each roll, you will place a bet on whether the caster will lose, win, or throw a chance.");
     println!("In each round, the caster chooses a number between 5 and 9. This is called the main.");
     println!("Then, the caster rolls two dice.");
@@ -53,9 +53,9 @@ fn rules()
     println!("\t-> if the main is 7, the caster wins with a roll of 12 but loses with a roll of 11.");
     println!("If the caster does not throw the main, 2, 3, 11, or 12, then the roll is called the chance.");
     println!("The caster gets to roll again:");
-    println!("\t-> If the caster throws the chance, he wins and you lose.");
-    println!("\t-> If the caster throws the main, he loses and you win.");
-    println!("\t-> If the caster throws neither, he keeps rolling until he either throws the chance or main.");
+    println!("\t-> if the caster throws the chance, he wins and you lose.");
+    println!("\t-> if the caster throws the main, he loses and you win.");
+    println!("\t-> if the caster throws neither, he keeps rolling until he either throws the chance or main.");
 }
 
 /*********************************************************************
@@ -182,6 +182,38 @@ fn print_dice(d1: u8)
         println!("|o o|");
     }
     println!(" ---\n");
+}
+
+/*********************************************************************
+ * method name: print_unicode_die
+ * purpose: display an Unicode image of a single die depending on what
+ *  what has been rolled.
+ * parameters: unsigned 8-bit integer for number rolled
+ * return: none
+ * ******************************************************************/ 
+fn print_unicode_die(d1:u8)
+{  
+    let face:char =
+    // die face-1
+    if d1 == 1
+    { '⚀' }
+    // die face-2
+    else if d1 == 2
+    { '⚁' }
+    // die face-3
+    else if d1 == 3
+    { '⚂' }
+    // die face-4
+    else if d1 == 4
+    { '⚃' }
+    // die face-5
+    else if d1 == 5
+    { '⚄' }
+    // die face-6
+    else 
+    { '⚅' };
+
+    println!("{}\n", face);
 }
 
 /**
