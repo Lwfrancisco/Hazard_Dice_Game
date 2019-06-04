@@ -20,7 +20,7 @@ fn main()
     */
 
     // Number of players.
-    let player_count:u8 = 2;
+    let player_count:u8 = 1;
 
     // Which player's turn is it? 0 is caster.
     let mut player_turn:u8 = 0;
@@ -46,14 +46,14 @@ fn main()
     while !terminated
     {
         // Begin a "round" of gameplay.
-
-        println!("Player {}'s turn.", player_turn);
-
         if caster_main == 0
         {
+            println!("Caster is rolling!!!");
             caster_main = roll_caster_main();
             println!("The caster's main is: {}\n", caster_main);
         }
+
+        println!("\nPlayer {}'s turn.", player_turn + 1);
 
         // if user_input is assigned to some value
         if !(user_input == "") 
@@ -62,7 +62,7 @@ fn main()
         }
 
         // Obtain input and evaluate it
-        println!("What would Player {} like to do?", player_turn);
+        println!("What would Player {} like to do?", player_turn + 1);
 
         io::stdin().read_line(&mut user_input)
             .expect("Failed to read line");
@@ -107,7 +107,7 @@ fn main()
         // Check if game is won
         if terminated == false
         {
-            terminated = true; //win_condition(caster_throws, caster_main);
+            terminated = false; //win_condition(caster_throws, caster_main);
         }
     }
 }
