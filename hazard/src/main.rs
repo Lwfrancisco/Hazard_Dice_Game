@@ -4,6 +4,7 @@ use rand::Rng;
 struct Player {
     winnings: i32,
     bet: i32,
+	outcome_guess: bool,
 }
 
 fn main()
@@ -27,7 +28,7 @@ fn main()
     // Terminated is set when player quits the game or the game is won.
     let mut terminated:bool = false;
 
-	let mut player = Player{ winnings:0, bet:0 }; 
+	let mut player = Player{ winnings:0, bet:0, outcome_guess:false }; 
 	
     let mut user_input = String::new();
 
@@ -83,7 +84,9 @@ fn main()
         }
         else if user_input == "b"
         {
-            place_bet(player.bet);
+            place_bet(&mut player);
+            println!("{}", player.bet);
+            println!("{}", player.outcome_guess);
             player_turn = player_turn + 1;
         }
         else if user_input == "q"
@@ -372,14 +375,14 @@ fn print_emoji_die(d1:u8)
 /*********************************************************************
  * method name: place_bet
  * purpose: determine wether the player wants to make a bet
- * return: player's guess of outcome
+ * parameters: A reference to a Player struct to allow value changes
+ * return: none
  * ******************************************************************/ 
-fn place_bet(mut input_bet:i32) -> bool
+fn place_bet(mut play:&mut Player)
 {
     let mut cont:bool = false;
     let mut bet:bool = false;
     let mut outcome:bool = false;
-    let mut bet_amount: i32 = 0;
 
     while cont == false {
         println!("Would you like to bet? (yes/no)");
@@ -416,7 +419,7 @@ fn place_bet(mut input_bet:i32) -> bool
             match trimmed.parse::<i32>() {
                 Ok(i) => {
                         println!("Your bet: ${}", i);
-                        input_bet = i;
+                        play.bet = i;
                         cont = true
                 }
                 Err(..) => println!("That was not a proper bet"),
@@ -424,10 +427,10 @@ fn place_bet(mut input_bet:i32) -> bool
 
         }
 	    
-	cont = false;
+		cont = false;
 	
-	while cont == false {
-		println!("Would you like to bet for a win?");
+		while cont == false {
+			println!("Would you like to bet for a win?");
 
             let mut decision = String::new();
             io::stdin()
@@ -437,18 +440,15 @@ fn place_bet(mut input_bet:i32) -> bool
             if decision.trim().to_ascii_lowercase() == "yes"{
                println!("You want the caster to win");
                cont = true;
-	       outcome = true;
+	       	   play.outcome_guess = true;
             }  else if decision.trim().to_ascii_lowercase() == "no"{
                println!("You want the caster to lose");
                cont = true;
             } else {
                println!("Please give a clearer answer");
             }
-	
-	}
+		}
     }
-	
-    return outcome;
 }
 
 /**
