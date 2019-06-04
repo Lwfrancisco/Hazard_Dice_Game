@@ -19,6 +19,19 @@ fn main()
     welcome();
     help();
 
+	print_unicode_die(1);
+	print_unicode_die(2);
+	print_unicode_die(3);
+	print_unicode_die(4);
+	print_unicode_die(5);
+	print_unicode_die(6);
+	print_dice(1);
+	print_dice(2);
+	print_dice(3);
+	print_dice(4);
+	print_dice(5);
+	print_dice(6);
+	
     while !terminated
     {
         // Begin a "round" of gameplay.
@@ -82,7 +95,7 @@ fn help()
 fn welcome()
 {
 	println!("\t\t-- WELCOME TO HAZARD --");
-	println!("Bet at your own risk...\n");
+	println!("\n\tBet at your own risk...\n");
 }
 
 /*********************************************************************
