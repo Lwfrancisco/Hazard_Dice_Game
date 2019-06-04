@@ -110,19 +110,28 @@ fn main()
         // Check if game is won
         if terminated == false && user_input == "b"
         {
+            let keep_rolling = true;
 
-            let round_result = win_condition(caster_throws, caster_main, caster_roll);
+            while (keep_rolling)
+            {
 
-            if (round_result == 0) {
-                println!("Caster has lost!");
-            }
-            else if round_result == 2
-            {
-                println!("Caster has won!");
-            }
-            else if round_result == 1
-            {
-                println!("Caster has thrown a chance!");
+                let round_result = win_condition(caster_throws, caster_main, caster_roll);
+
+                if (round_result == 0) {
+                    println!("Caster has lost!");
+                    keep_rolling = false;
+                }
+                else if round_result == 2
+                {
+                    println!("Caster has won!");
+                    keep_rolling = false;
+
+                }
+                else if round_result == 1
+                {
+                    println!("Caster has thrown a chance!");
+                    keep_rolling = true;
+                }
             }
         }
     }
