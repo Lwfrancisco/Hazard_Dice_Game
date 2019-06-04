@@ -33,20 +33,6 @@ fn main()
     let mut user_input = String::new();
 
     let mut caster_main = 0;
-    
-    while caster_main < 5 && caster_main > 9
-    {
-        let dice1 = rand::thread_rng().gen_range(1, 6);
-        let dice2 = rand::thread_rng().gen_range(1, 6);
-
-        caster_main = dice1 + dice2;
-
-        if caster_main >= 5 && caster_main <= 9
-        {
-            print_unicode_die(dice1);
-            print_unicode_die(dice2);
-        }
-    }
 
     welcome();
     help();
@@ -57,6 +43,12 @@ fn main()
 
         println!("Player {}'s turn.", player_turn);
 
+        if caster_main == 0
+        {
+            caster_main = roll_caster_main();
+            println!("The caster's main is: {}\n", caster_main);
+        }
+
         // if user_input is assigned to some value
         if !(user_input == "") 
         {
@@ -64,6 +56,8 @@ fn main()
         }
 
         // Obtain input and evaluate it
+        println!("What would Player {} like to do?", player_turn);
+
         io::stdin().read_line(&mut user_input)
             .expect("Failed to read line");
 
@@ -92,6 +86,10 @@ fn main()
         else if user_input == "q"
         {
             terminated = true;
+        }
+        else
+        {
+            println!("Invalid input. Please enter valid input as described in help (type 'h')");
         }
 
         // if we have cycled through all players.
@@ -449,6 +447,33 @@ fn place_bet(mut play:&mut Player)
             }
 		}
     }
+}
+
+/**
+ * roll_caster_main -> i8
+ * Rolls until caster gets a valid main.
+ * 
+ * Returns value of rolled main.
+ */
+fn roll_caster_main() -> u8
+{
+    let mut roll:u8 = 0;
+
+    while roll < 5 || roll > 9
+    {
+        let dice1 = rand::thread_rng().gen_range(1, 6);
+        let dice2 = rand::thread_rng().gen_range(1, 6);
+
+        roll = dice1 + dice2;
+
+        if roll >= 5 && roll <= 9
+        {
+            print_unicode_die(dice1);
+            print_unicode_die(dice2);
+        }
+    }
+
+    return roll;
 }
 
 /**
