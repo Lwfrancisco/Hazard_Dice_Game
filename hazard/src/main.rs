@@ -111,12 +111,16 @@ fn main()
                 if (round_result == 0) {
                     println!("Caster has lost!");
                     money_distribution(false, &mut player);
+					println!("Player has won ${}, player.winnings);
+					terminated = truw;
                     keep_rolling = false;
                 }
                 else if round_result == 2
                 {
                     println!("Caster has won!");
                     money_distribution(true, &mut player);
+					println!("Player has won ${}, player.winnings);
+					terminated = true;
                     keep_rolling = false;
 
                 }
