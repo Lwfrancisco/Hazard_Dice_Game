@@ -107,7 +107,7 @@ fn main()
         // Check if game is won
         if terminated == false
         {
-            terminated = win_condition(caster_throws, caster_main);
+            terminated = true; //win_condition(caster_throws, caster_main);
         }
     }
 }
@@ -484,12 +484,60 @@ fn roll_caster_main() -> u8
 
 /**
  * win_condition -> bool
- * Determines if the caster has "won"
+ * Determines if the caster has "won", "lost", or "chanced"
  * 
  * Returns true as a placeholder.
  */
-fn win_condition(_thow_count:u8, _main:u8) -> bool
+fn win_condition(_throw_count:u8, _main:u8, _roll:u8) -> bool
 {
-    
-    return false;
+    // if the caster hasn't rolled anything besides main, always return false.
+    if _throw_count == 0
+    {
+        return false;
+    }
+
+    // Check if caster has lost
+    if _roll == 2 || _roll == 3
+    {
+        return false; // caster will always lose on these
+    }
+    else if (_main == 5 || _main == 9) && (_roll == 11 || _roll == 12)
+    {
+        return false;
+    }
+    else if (_roll == 1) && (_main == 6 || _main == 8)
+    {
+        return false;
+    }
+    else if _roll == 12 && _main == 7
+    {
+        return false;
+    }
+
+    // Check if caster has won
+    if _main == 5 
+    {
+        return _main == _roll;
+    }
+    else if _main == 6
+    {
+        return _main == _roll || _roll == 12;
+    }
+    else if _main == 7
+    {
+        return _main == _roll || _roll == 11;
+    }
+    else if _main == 9
+    {
+        return _main == _roll;
+    }
+    else if _main == 8
+    {
+        return _main == _roll || _roll == 12;
+    }
+    else
+    {
+        return false;
+    }
+
 }
