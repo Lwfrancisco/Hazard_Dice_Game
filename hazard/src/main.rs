@@ -29,18 +29,12 @@ fn main()
     welcome();
     help();
 
-	print_unicode_die(1);
-	print_unicode_die(2);
-	print_unicode_die(3);
-	print_unicode_die(4);
-	print_unicode_die(5);
-	print_unicode_die(6);
-	print_dice(1);
-	print_dice(2);
-	print_dice(3);
-	print_dice(4);
-	print_dice(5);
-	print_dice(6);
+    print_unicode_die(1);
+    print_unicode_die(2);
+    print_unicode_die(3);
+    print_unicode_die(4);
+    print_unicode_die(5);
+    print_unicode_die(6);
 	
     while !terminated
     {
@@ -159,13 +153,13 @@ fn about()
 }
 
 /*********************************************************************
- * method name: print_dice
+ * method name: print_ascii_die
  * purpose: display an ASCII image of a single die depending on what
  *  what has been rolled.
  * parameters: unsigned 8-bit integer for number rolled
  * return: none
  * ******************************************************************/ 
-fn print_dice(d1: u8)
+fn print_ascii_die(d1: u8)
 {
     println!(" ---");
     //  ---
@@ -245,6 +239,85 @@ fn print_dice(d1: u8)
  * return: none
  * ******************************************************************/ 
 fn print_unicode_die(d1:u8)
+{
+    println!(" ―――――");
+    //  ―――――
+    // ｜   ｜
+    // ｜ • ｜
+    // ｜   ｜
+    //  ―――――
+    if d1 == 1
+    {
+        println!("｜   ｜");
+        println!("｜ • ｜");
+        println!("｜   ｜");
+    }
+    //  ―――――
+    // ｜•  ｜
+    // ｜   ｜
+    // ｜  •｜
+    //  ―――――
+    else if d1 == 2
+    {
+        println!("｜•  ｜");
+        println!("｜   ｜");
+        println!("｜  •｜");
+    }
+    //  ―――――
+    // ｜•  ｜
+    // ｜ • ｜
+    // ｜  •｜
+    //  ―――――
+    else if d1 == 3
+    {
+        println!("｜•  ｜");
+        println!("｜ • ｜");
+        println!("｜  •｜");
+    }
+    //  ―――――
+    // ｜• •｜
+    // ｜   ｜
+    // ｜• •｜
+    //  ―――――
+    else if d1 == 4
+    {
+        println!("｜• •｜");
+        println!("｜   ｜");
+        println!("｜• •｜");
+    }
+    //  ―――――
+    // ｜• •｜
+    // ｜ • ｜
+    // ｜• •｜
+    //  ―――――
+    else if d1 == 5
+    {
+        println!("｜• •｜");
+        println!("｜ • ｜");
+        println!("｜• •｜");
+    }
+    //  ―――――
+    // ｜• •｜
+    // ｜• •｜
+    // ｜• •｜
+    //  ―――――
+    else
+    {
+        println!("｜• •｜");
+        println!("｜• •｜");
+        println!("｜• •｜")
+    }
+    println!(" ―――――\n");
+}
+
+/*********************************************************************
+ * method name: print_emoji_die
+ * purpose: display an Unicode emoji of a single die depending on what
+ *  what has been rolled.
+ * parameters: unsigned 8-bit integer for number rolled
+ * return: none
+ * ******************************************************************/ 
+fn print_emoji_die(d1:u8)
 {  
     let face:char =
     // die face-1
