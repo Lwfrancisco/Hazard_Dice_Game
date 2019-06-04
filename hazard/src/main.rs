@@ -486,58 +486,57 @@ fn roll_caster_main() -> u8
  * win_condition -> bool
  * Determines if the caster has "won", "lost", or "chanced"
  * 
- * Returns true as a placeholder.
+ * Returns 0 if lost, 1 if chance, or 2 if won.
  */
-fn win_condition(_throw_count:u8, _main:u8, _roll:u8) -> bool
+fn win_condition(_throw_count:u8, _main:u8, _roll:u8) -> u8
 {
     // if the caster hasn't rolled anything besides main, always return false.
     if _throw_count == 0
     {
-        return false;
+        return 0;
     }
 
     // Check if caster has lost
     if _roll == 2 || _roll == 3
     {
-        return false; // caster will always lose on these
+        return 0; // caster will always lose on these
     }
     else if (_main == 5 || _main == 9) && (_roll == 11 || _roll == 12)
     {
-        return false;
+        return 0;
     }
     else if (_roll == 1) && (_main == 6 || _main == 8)
     {
-        return false;
+        return 0;
     }
     else if _roll == 12 && _main == 7
     {
-        return false;
+        return 0;
     }
 
     // Check if caster has won
-    if _main == 5 
+    if _main == 5 && _main == _roll
     {
-        return _main == _roll;
+        return 2;
     }
-    else if _main == 6
+    else if _main == 6 && (_main == _roll || _roll == 12)
     {
-        return _main == _roll || _roll == 12;
+        return 2;
     }
-    else if _main == 7
+    else if _main == 7 && (_main == _roll || _roll == 11)
     {
-        return _main == _roll || _roll == 11;
+        return 2;
     }
-    else if _main == 9
+    else if _main == 9 && _main == _roll
     {
-        return _main == _roll;
+        return 2;
     }
-    else if _main == 8
+    else if _main == 8 && (_main == _roll || _roll == 12)
     {
-        return _main == _roll || _roll == 12;
+        return 2;
     }
-    else
-    {
-        return false;
-    }
+
+    // Else all, roll is a chance
+    return 1;
 
 }
