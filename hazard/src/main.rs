@@ -37,6 +37,9 @@ fn main()
     // Number of throws for caster
     let mut caster_throws = 0;
 
+    // What the caster has rolled
+    let mut caster_roll = 0;
+
     // Variable will store the caster's main roll.
     let mut caster_main:u8 = 0;
 
@@ -105,9 +108,22 @@ fn main()
         }
 
         // Check if game is won
-        if terminated == false
+        if terminated == false && user_input == "b"
         {
-            terminated = false; //win_condition(caster_throws, caster_main);
+
+            let round_result = win_condition(caster_throws, caster_main, caster_roll);
+
+            if (round_result == 0) {
+                println!("Caster has lost!");
+            }
+            else if round_result == 2
+            {
+                println!("Caster has won!");
+            }
+            else if round_result == 1
+            {
+                println!("Caster has thrown a chance!");
+            }
         }
     }
 }
